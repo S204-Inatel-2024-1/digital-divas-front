@@ -1,7 +1,47 @@
 import { FormFooter, InputContainer, LoginHeader } from './styles'
-import { ButtonBlue } from '../../../components/buttonBlue'
+import { useState } from 'react'
+import { StyledButton } from '../login/style'
 
 export function LoginFirstAccess() {
+  const [formData, setFormData] = useState({
+    password: '',
+    confirmation: '',
+  })
+
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault()
+
+    if (formData.password !== formData.confirmation) {
+      alert('As senhas não coincidem')
+      return
+    }
+
+    const response = await fetch(
+      `https://digital-divas-back.onrender.com/auth/firstAccess`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        credentials: 'include',
+      },
+    )
+
+    console.log(response)
+
+    if (response.status === 204) {
+      window.location.href = '/admin/projectsList'
+    } else {
+      alert('Erro ao atualizar a senha')
+    }
+  }
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.target
+
+    setFormData({ ...formData, [name]: value })
+  }
   return (
     <div>
       <LoginHeader>
@@ -9,20 +49,31 @@ export function LoginFirstAccess() {
         <span>Crie uma nova senha.</span>
       </LoginHeader>
       <div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <InputContainer>
             <label>Senha *</label>
-            <input type="email" placeholder="Insira sua senha..."></input>
+            <input
+              name="password"
+              type="password"
+              placeholder="Insira sua senha..."
+              value={formData.password}
+              onChange={handleChange}
+            ></input>
           </InputContainer>
           <InputContainer>
             <label>Confirmação *</label>
             <input
+              name="confirmation"
               type="password"
               placeholder="Insira sua senha novamente..."
+              value={formData.confirmation}
+              onChange={handleChange}
             ></input>
           </InputContainer>
           <FormFooter>
-            <ButtonBlue text="Entrar" to="/admin/projectsList" />
+            <StyledButton>
+              <div>Entrar</div>
+            </StyledButton>
           </FormFooter>
         </form>
       </div>

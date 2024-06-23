@@ -1,19 +1,15 @@
-import { ReactNode } from 'react'
 import { Header } from '../../components/header'
 import { SideBar } from '../../components/sideBar'
 import { ContentContainer, PageContainer } from './styles'
+import { Outlet } from 'react-router-dom'
 
-interface LayouProps {
-  children?: ReactNode
-}
-
-export function Layout({ children }: LayouProps) {
+export function Layout() {
   return (
     <PageContainer>
       <SideBar></SideBar>
       <ContentContainer>
         <Header />
-        {children}
+        <Outlet />
       </ContentContainer>
     </PageContainer>
   )

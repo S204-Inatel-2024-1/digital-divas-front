@@ -23,28 +23,28 @@ export function SideBar() {
       <SideBarContent>
         <SideBarButtons>
           <StyledNavLink
-            to={'/admin/dashboard'}
+            to={'/app/admin/dashboard'}
             style={{ textDecoration: 'none' }}
           >
             <img src={HomeIcon} alt="" />
             <span>Início</span>
           </StyledNavLink>
           <StyledNavLink
-            to={'/admin/stagesList'}
+            to={'/app/admin/stagesList'}
             style={{ textDecoration: 'none' }}
           >
             <img src={CheckIcon} alt="" />
             <span>Etapas</span>
           </StyledNavLink>
           <StyledNavLink
-            to={'/admin/projectsList'}
+            to={'/app/admin/projectsList'}
             style={{ textDecoration: 'none' }}
           >
             <img src={CupIcon} alt="" />
             <span>Projetos</span>
           </StyledNavLink>
           <StyledNavLink
-            to={'/admin/usersList'}
+            to={'/app/admin/usersList'}
             style={{ textDecoration: 'none' }}
           >
             <img src={ProfileIcon} alt="" />

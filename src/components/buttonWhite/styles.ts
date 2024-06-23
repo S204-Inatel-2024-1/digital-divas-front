@@ -11,6 +11,8 @@ export const StyledButton = styled.button`
 
   text-wrap: nowrap;
 
+  outline: 0;
+
   cursor: pointer;
   text-decoration: none;
 

@@ -22,7 +22,7 @@ export function LoginPasswordChange() {
             ></input>
           </InputContainer>
           <FormFooter>
-            <ButtonBlue text="Entrar" to="/admin/projectsList" />
+            <ButtonBlue text="Entrar" to="/app/admin/projectsList" />
           </FormFooter>
         </form>
       </div>

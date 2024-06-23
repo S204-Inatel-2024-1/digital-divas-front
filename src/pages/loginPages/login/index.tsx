@@ -1,9 +1,50 @@
-import { FormFooter, InputContainer, LoginHeader, LoginNotice } from './style'
+import {
+  FormFooter,
+  InputContainer,
+  LoginHeader,
+  LoginNotice,
+  StyledButton,
+} from './style'
 
 import { Link } from 'react-router-dom'
-import { ButtonBlue } from '../../../components/buttonBlue'
+import { useState } from 'react'
 
 export function LoginPage() {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  })
+
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault()
+
+    const response = await fetch(
+      `https://digital-divas-back.onrender.com/auth`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        credentials: 'include',
+      },
+    )
+
+    const data = await response.json()
+
+    if (response.status === 200 && data.firstAccess) {
+      window.location.href = '/login/firstAccess'
+    } else if (response.status === 200 && !data.firstAccess) {
+      window.location.href = '/admin/projectsList'
+    }
+  }
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.target
+
+    setFormData({ ...formData, [name]: value })
+  }
+
   return (
     <div>
       <LoginHeader>
@@ -13,23 +54,32 @@ export function LoginPage() {
         </span>
       </LoginHeader>
       <div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <InputContainer>
             <label>Email *</label>
-            <input type="email" placeholder="Insira seu e-mail..."></input>
+            <input
+              name="email"
+              type="email"
+              placeholder="Insira seu e-mail..."
+              value={formData.email}
+              onChange={handleChange}
+            ></input>
           </InputContainer>
           <InputContainer>
             <label>Senha *</label>
-            <input type="password" placeholder="Insira sua senha..."></input>
+            <input
+              name="password"
+              type="password"
+              placeholder="Insira sua senha..."
+              value={formData.password}
+              onChange={handleChange}
+            ></input>
           </InputContainer>
           <FormFooter>
-            <Link
-              to={'/login/passwordRefactor'}
-              style={{ textDecoration: 'none' }}
-            >
-              <a>Esqueci minha senha</a>
-            </Link>
-            <ButtonBlue text="Entrar" to="/login/firstAcess" />
+            <Link to={'/login/passwordRefactor'}>Esqueci minha senha</Link>
+            <StyledButton>
+              <div>Entrar</div>
+            </StyledButton>
           </FormFooter>
         </form>
       </div>

@@ -16,6 +16,8 @@ export const StyledButton = styled.button`
 
   padding: 12px 24px;
 
+  outline: 0;
+
   div {
     display: flex;
     gap: 8px;
