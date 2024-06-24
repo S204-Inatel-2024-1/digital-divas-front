@@ -7,42 +7,32 @@ import {
 } from './style'
 
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { UserContext } from '../../../contexts/UserContext'
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { useContext } from 'react'
 
 export function LoginPage() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+  const loginFormSchema = z.object({
+    email: z.string().email(),
+    password: z.string(),
   })
 
-  async function handleSubmit(event: React.FormEvent) {
-    event.preventDefault()
+  type LoginFormInputs = z.infer<typeof loginFormSchema>
 
-    const response = await fetch(
-      `https://digital-divas-back.onrender.com/auth`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-        credentials: 'include',
-      },
-    )
+  const { fetchUser } = useContext(UserContext)
 
-    const data = await response.json()
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<LoginFormInputs>({
+    resolver: zodResolver(loginFormSchema),
+  })
 
-    if (response.status === 200 && data.firstAccess) {
-      window.location.href = '/login/firstAccess'
-    } else if (response.status === 200 && !data.firstAccess) {
-      window.location.href = '/admin/projectsList'
-    }
-  }
-
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target
-
-    setFormData({ ...formData, [name]: value })
+  async function handleLoginSubmit(data: LoginFormInputs) {
+    await fetchUser(data.email, data.password)
   }
 
   return (
@@ -54,30 +44,26 @@ export function LoginPage() {
         </span>
       </LoginHeader>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(handleLoginSubmit)}>
           <InputContainer>
             <label>Email *</label>
             <input
-              name="email"
               type="email"
               placeholder="Insira seu e-mail..."
-              value={formData.email}
-              onChange={handleChange}
+              {...register('email')}
             ></input>
           </InputContainer>
           <InputContainer>
             <label>Senha *</label>
             <input
-              name="password"
               type="password"
               placeholder="Insira sua senha..."
-              value={formData.password}
-              onChange={handleChange}
+              {...register('password')}
             ></input>
           </InputContainer>
           <FormFooter>
             <Link to={'/login/passwordRefactor'}>Esqueci minha senha</Link>
-            <StyledButton>
+            <StyledButton type="submit" disabled={isSubmitting}>
               <div>Entrar</div>
             </StyledButton>
           </FormFooter>

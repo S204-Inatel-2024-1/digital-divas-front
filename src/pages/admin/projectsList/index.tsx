@@ -13,10 +13,13 @@ import projectsData from './teste.json' // Importando os dados do JSON
 import { FilterBarAndButton } from '../../../components/filter'
 import { ButtonWhite } from '../../../components/buttonWhite'
 import { ButtonBlue } from '../../../components/buttonBlue'
-import { SetStateAction, useState } from 'react'
+import { SetStateAction, useContext, useState } from 'react'
 import { Breadcrumbs } from '../../../components/breadCrumbs'
+import { UserContext } from '../../../contexts/UserContext'
 
 export function AdminProjectsList() {
+  const { user } = useContext(UserContext)
+
   const [activeFilter, setActiveFilter] = useState('TODOS OS NÍVEIS')
 
   const handleFilterClick = (filter: SetStateAction<string>) => {
@@ -29,8 +32,12 @@ export function AdminProjectsList() {
       <ProjectsHeader>
         <span>Todos os Projetos</span>
         <ProjectsHeaderButtons>
-          <ButtonWhite text="Importar projeto" to="projectEdit" />
-          <ButtonBlue text="Novo projeto" to="projectsSignIn" />
+          {user.role === 'admin' && (
+            <>
+              <ButtonWhite text="Importar projeto" to="projectEdit" />
+              <ButtonBlue text="Novo projeto" to="projectsSignIn" />
+            </>
+          )}
         </ProjectsHeaderButtons>
       </ProjectsHeader>
 

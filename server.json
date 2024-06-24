@@ -3,7 +3,67 @@
     {
       "id": 1,
       "email": "john@gmail.com",
-      "name": "John"
+      "firstName": "John",
+      "lastName": "Smith",
+      "password": "1234",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "email": "jane@outlook.com",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "password": "abcd",
+      "role": "aluno"
+    },
+    {
+      "id": 3,
+      "email": "mike@yahoo.com",
+      "firstName": "Mike",
+      "lastName": "Smith",
+      "password": "efgh",
+      "role": "avaliador"
+    },
+    {
+      "id": 4,
+      "email": "lisa@live.com",
+      "firstName": "Lisa",
+      "lastName": "Smith",
+      "password": "ijkl",
+      "role": "admin"
+    },
+    {
+      "id": 5,
+      "email": "dave@aol.com",
+      "firstName": "Dave",
+      "lastName": "Smith",
+      "password": "mnop",
+      "role": "aluno"
+    },
+    {
+      "id": 6,
+      "email": "yvesan12@gmail.com",
+      "firstName": "Yves",
+      "lastName": "Smith",
+      "password": "1234",
+      "role": "admin"
+    },
+    {
+      "id": 7,
+      "email": "yvesan20@gmail.com",
+      "firstName": "Yves",
+      "lastName": "Smith",
+      "password": "default",
+      "role": "admin"
+    }
+  ],
+  "project": [
+    {
+      "id": 1,
+      "name": "Project 1",
+      "description": "Project 1 description",
+      "startDate": "2020-01-01",
+      "endDate": "2020-12-31"
     }
   ]
 }

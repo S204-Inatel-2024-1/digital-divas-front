@@ -1,47 +1,42 @@
 import { FormFooter, InputContainer, LoginHeader } from './styles'
-import { useState } from 'react'
+import { useContext } from 'react'
 import { StyledButton } from '../login/style'
+import { UserContext } from '../../../contexts/UserContext'
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 
 export function LoginFirstAccess() {
-  const [formData, setFormData] = useState({
-    password: '',
-    confirmation: '',
+  const passwordUpdateFormSchema = z.object({
+    password: z.string(),
+    passwordConfirmation: z.string(),
   })
 
-  async function handleSubmit(event: React.FormEvent) {
-    event.preventDefault()
+  type PasswordUpdateFormInputs = z.infer<typeof passwordUpdateFormSchema>
 
-    if (formData.password !== formData.confirmation) {
-      alert('As senhas não coincidem')
-      return
-    }
+  const { putUser, user } = useContext(UserContext)
 
-    const response = await fetch(
-      `https://digital-divas-back.onrender.com/auth/firstAccess`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-        credentials: 'include',
-      },
-    )
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<PasswordUpdateFormInputs>({
+    resolver: zodResolver(passwordUpdateFormSchema),
+  })
 
-    console.log(response)
+  async function handlePasswordUpdateSubmit(data: PasswordUpdateFormInputs) {
+    if (user.password === 'default')
+      if (data.password === data.passwordConfirmation)
+        await putUser(data.password)
+      else alert('As senhas não coincidem')
+    else alert('A senha já foi alterada')
 
-    if (response.status === 204) {
-      window.location.href = '/admin/projectsList'
-    } else {
-      alert('Erro ao atualizar a senha')
-    }
+    console.log(user)
+    console.log(data)
+    console.log(data.password)
+    console.log(data.passwordConfirmation)
   }
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target
-
-    setFormData({ ...formData, [name]: value })
-  }
   return (
     <div>
       <LoginHeader>
@@ -49,29 +44,25 @@ export function LoginFirstAccess() {
         <span>Crie uma nova senha.</span>
       </LoginHeader>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(handlePasswordUpdateSubmit)}>
           <InputContainer>
             <label>Senha *</label>
             <input
-              name="password"
               type="password"
               placeholder="Insira sua senha..."
-              value={formData.password}
-              onChange={handleChange}
+              {...register('password')}
             ></input>
           </InputContainer>
           <InputContainer>
             <label>Confirmação *</label>
             <input
-              name="confirmation"
               type="password"
               placeholder="Insira sua senha novamente..."
-              value={formData.confirmation}
-              onChange={handleChange}
+              {...register('passwordConfirmation')}
             ></input>
           </InputContainer>
           <FormFooter>
-            <StyledButton>
+            <StyledButton type="submit" disabled={isSubmitting}>
               <div>Entrar</div>
             </StyledButton>
           </FormFooter>

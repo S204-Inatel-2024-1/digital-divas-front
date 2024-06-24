@@ -77,10 +77,17 @@ export const InputContainer = styled.div`
   flex-direction: column;
 `
 
+export const Advisorinfo = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+`
+
 export const StudentInfo = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   flex-direction: row;
-  margin-top: 20px;
+  margin: 20px 0;
   gap: 16px;
 `
 export const Divider2 = styled.div`
