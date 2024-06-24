@@ -57,11 +57,24 @@
       "role": "admin"
     }
   ],
-  "project": [
+  "students": [
+    {
+      "id": 1,
+      "userId": 1
+    }
+  ],
+  "projects": [
     {
       "id": 1,
       "name": "Project 1",
       "description": "Project 1 description",
+      "level": 1,
+      "advisorId": 1,
+      "team": [
+        2, 5
+      ],
+      "stage": "Em andamento",
+      "status": "Ativo",
       "startDate": "2020-01-01",
       "endDate": "2020-12-31"
     }

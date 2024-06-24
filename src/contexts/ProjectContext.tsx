@@ -6,17 +6,7 @@ import {
   useEffect,
 } from 'react'
 import { api } from '../lib/axios'
-
-interface Project {
-  id: number
-  name: string
-  description: string
-  status: string
-  stage: string
-  level: number
-  advisorId: number
-  groupeId: number[]
-}
+import { Project } from '../models/ProjectModel'
 
 interface ProjectContextType {
   projects: Project[]

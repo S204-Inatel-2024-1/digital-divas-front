@@ -9,21 +9,36 @@ import {
   ProjectsHeaderButtons,
 } from './styles'
 
-import projectsData from './teste.json' // Importando os dados do JSON
 import { FilterBarAndButton } from '../../../components/filter'
 import { ButtonWhite } from '../../../components/buttonWhite'
 import { ButtonBlue } from '../../../components/buttonBlue'
 import { SetStateAction, useContext, useState } from 'react'
 import { Breadcrumbs } from '../../../components/breadCrumbs'
 import { UserLoggedContext } from '../../../contexts/UserLoggedContext'
+import { UserContext } from '../../../contexts/UserContext'
+import { ProjectContext } from '../../../contexts/ProjectContext'
+import { StudentContext } from '../../../contexts/StudentContext'
+import { UserAvatar } from '../../../components/userAvatar'
+import { UserAvatarStack } from '../../../components/userAvatarStack'
+import { User } from '../../../models/UserModel'
 
 export function AdminProjectsList() {
   const { userLogged } = useContext(UserLoggedContext)
 
   const [activeFilter, setActiveFilter] = useState('TODOS OS NÍVEIS')
 
+  const { projects } = useContext(ProjectContext)
+  const { students } = useContext(StudentContext)
+  const { users } = useContext(UserContext)
+
   const handleFilterClick = (filter: SetStateAction<string>) => {
     setActiveFilter(filter)
+  }
+
+  const findTeam = (membersId: number[], advisorId: number): User[] => {
+    const team = membersId.map((id) => users.find((user) => user.id === id)!)
+    const advisor = users.find((user) => user.id === advisorId)!
+    return [...team, advisor]
   }
 
   return (
@@ -90,14 +105,17 @@ export function AdminProjectsList() {
               </tr>
             </thead>
             <tbody>
-              {projectsData.map((project) => (
+              {projects.map((project) => (
                 <tr key={project.id}>
                   <td>{project.id}</td>
-                  <td>{project.nome}</td>
-                  <td>{project.nivel}</td>
-                  <td>{project.equipe}</td>
-                  <td>{project.orientador}</td>
-                  <td>{project.etapa}</td>
+                  <td>{project.name}</td>
+                  <td>{project.level}</td>
+                  <td>
+                    <UserAvatarStack
+                      users={findTeam(project.team, project.advisorId)}
+                    />
+                  </td>
+                  <td>{project.stage}</td>
                   <td>{project.status}</td>
                 </tr>
               ))}
