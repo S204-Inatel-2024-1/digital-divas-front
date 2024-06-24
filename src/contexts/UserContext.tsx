@@ -59,7 +59,7 @@ export function UserProvider({ children }: UserContextProviderProps) {
 
   const putUser = useCallback(
     async (password: string) => {
-      const response = await api.put(`users/${user.id}`, { password })
+      const response = await api.put(`users/`, { password })
       console.log(response.data)
       navigate('/app/admin/projectsList')
     },
