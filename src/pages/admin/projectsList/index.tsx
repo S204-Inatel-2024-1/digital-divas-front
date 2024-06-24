@@ -15,10 +15,10 @@ import { ButtonWhite } from '../../../components/buttonWhite'
 import { ButtonBlue } from '../../../components/buttonBlue'
 import { SetStateAction, useContext, useState } from 'react'
 import { Breadcrumbs } from '../../../components/breadCrumbs'
-import { UserContext } from '../../../contexts/UserContext'
+import { UserLoggedContext } from '../../../contexts/UserLoggedContext'
 
 export function AdminProjectsList() {
-  const { user } = useContext(UserContext)
+  const { userLogged } = useContext(UserLoggedContext)
 
   const [activeFilter, setActiveFilter] = useState('TODOS OS NÍVEIS')
 
@@ -32,7 +32,7 @@ export function AdminProjectsList() {
       <ProjectsHeader>
         <span>Todos os Projetos</span>
         <ProjectsHeaderButtons>
-          {user.role === 'admin' && (
+          {userLogged.role === 'admin' && (
             <>
               <ButtonWhite text="Importar projeto" to="projectEdit" />
               <ButtonBlue text="Novo projeto" to="projectsSignIn" />

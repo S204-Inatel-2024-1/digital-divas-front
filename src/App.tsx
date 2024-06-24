@@ -4,15 +4,15 @@ import { defaultTheme } from './styles/themes/defaut'
 import { GlobalStyle } from './styles/global'
 import { Router } from './routes/router'
 import { BrowserRouter } from 'react-router-dom'
-import { UserProvider } from './contexts/UserContext'
+import { UserLoggedProvider } from './contexts/UserLoggedContext'
 
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <BrowserRouter>
-        <UserProvider>
+        <UserLoggedProvider>
           <Router />
-        </UserProvider>
+        </UserLoggedProvider>
       </BrowserRouter>
       <GlobalStyle />
     </ThemeProvider>

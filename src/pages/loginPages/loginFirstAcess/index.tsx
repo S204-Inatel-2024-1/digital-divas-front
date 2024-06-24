@@ -1,7 +1,7 @@
 import { FormFooter, InputContainer, LoginHeader } from './styles'
 import { useContext } from 'react'
 import { StyledButton } from '../login/style'
-import { UserContext } from '../../../contexts/UserContext'
+import { UserLoggedContext } from '../../../contexts/UserLoggedContext'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -14,7 +14,7 @@ export function LoginFirstAccess() {
 
   type PasswordUpdateFormInputs = z.infer<typeof passwordUpdateFormSchema>
 
-  const { putUser, user } = useContext(UserContext)
+  const { putUser, userLogged } = useContext(UserLoggedContext)
 
   const {
     register,
@@ -25,13 +25,13 @@ export function LoginFirstAccess() {
   })
 
   async function handlePasswordUpdateSubmit(data: PasswordUpdateFormInputs) {
-    if (user.password === 'default')
+    if (userLogged.password === 'default')
       if (data.password === data.passwordConfirmation)
         await putUser(data.password)
       else alert('As senhas não coincidem')
     else alert('A senha já foi alterada')
 
-    console.log(user)
+    console.log(userLogged)
     console.log(data)
     console.log(data.password)
     console.log(data.passwordConfirmation)

@@ -1,21 +1,21 @@
 import { useContext } from 'react'
-import { UserContext } from '../../contexts/UserContext'
+import { UserLoggedContext } from '../../contexts/UserLoggedContext'
 import { HeaderContainer, HeaderIcon, HeaderInfo, HeaderUser } from './styles'
 
 export function Header() {
-  const { user } = useContext(UserContext)
+  const { userLogged } = useContext(UserLoggedContext)
 
   return (
     <HeaderContainer>
       <HeaderInfo>
         <HeaderUser>
-          <span>{user.firstName + ' ' + user.lastName}</span>
-          {user.role === 'admin' && <span>Adminstrador</span>}
-          {user.role === 'avaliador' && <span>Avaliador</span>}
-          {user.role === 'aluno' && <span>Aluno</span>}
+          <span>{userLogged.firstName + ' ' + userLogged.lastName}</span>
+          {userLogged.role === 'admin' && <span>Adminstrador</span>}
+          {userLogged.role === 'avaliador' && <span>Avaliador</span>}
+          {userLogged.role === 'aluno' && <span>Aluno</span>}
         </HeaderUser>
         <HeaderIcon>
-          <span>{user.firstName[0] + user.lastName[0]}</span>
+          <span>{userLogged.firstName[0] + userLogged.lastName[0]}</span>
         </HeaderIcon>
       </HeaderInfo>
     </HeaderContainer>

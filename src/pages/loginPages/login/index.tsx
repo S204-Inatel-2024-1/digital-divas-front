@@ -7,7 +7,7 @@ import {
 } from './style'
 
 import { Link } from 'react-router-dom'
-import { UserContext } from '../../../contexts/UserContext'
+import { UserLoggedContext } from '../../../contexts/UserLoggedContext'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -21,7 +21,7 @@ export function LoginPage() {
 
   type LoginFormInputs = z.infer<typeof loginFormSchema>
 
-  const { fetchUser } = useContext(UserContext)
+  const { fetchUser } = useContext(UserLoggedContext)
 
   const {
     register,
