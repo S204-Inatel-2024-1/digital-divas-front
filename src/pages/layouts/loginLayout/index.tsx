@@ -1,5 +1,5 @@
-import digitalLogo from '../../assets/imgs/DigitalDivasLogo.svg'
-import loginFetinLogo from '../../assets/imgs/logoLogin.svg'
+import digitalLogo from '../../../assets/imgs/DigitalDivasLogo.svg'
+import loginFetinLogo from '../../../assets/imgs/logoLogin.svg'
 import { LoginContainer, LoginContent, LoginFooter, LoginImg } from './styles'
 import { Outlet } from 'react-router-dom'
 

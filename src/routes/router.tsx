@@ -1,17 +1,22 @@
 import { Route, Routes } from 'react-router-dom'
-import { LoginLayout } from '../pages/loginLayout'
+import { LoginLayout } from '../pages/layouts/loginLayout'
 import { LoginFirstAccess } from '../pages/loginPages/loginFirstAcess'
 import { LoginPage } from '../pages/loginPages/login'
 import { LoginPasswordCode } from '../pages/loginPages/loginCode'
 import { LoginPasswordRefactor } from '../pages/loginPages/loginPasswordRefactor'
 import { LoginPasswordChange } from '../pages/loginPages/loginPasswordChange'
-import { Layout } from '../pages/appLayout'
-import { AdminProjectsList } from '../pages/admin/projectsList'
-import { AdminProjectsSignIn } from '../pages/admin/projectsSignIn'
-import { AdminUsersList } from '../pages/admin/usersList'
-import { AdminProjectsEdit } from '../pages/admin/projectsEdit'
-import { AdminStagesList } from '../pages/admin/stageList'
-import { Dashboard } from '../pages/user/dashBoard'
+import { Layout } from '../pages/layouts/appLayout'
+import { AdminProjectsList } from '../pages/projectsPages//projectsList'
+import { AdminProjectsSignIn } from '../pages/projectsPages/projectsSignIn'
+import { AdminUsersList } from '../pages/usersPages/usersList'
+import { AdminProjectsEdit } from '../pages/projectsPages/projectsEdit'
+import { AdminStagesList } from '../pages/stagesPages/stageList'
+import { Dashboard } from '../pages/dashboardPages/dashBoard'
+import { StagesSignIn } from '../pages/stagesPages/stageSignIn'
+import { UsersSignIn } from '../pages/usersPages/usersSignIn'
+import { UserUpdate } from '../pages/usersPages/userUpdate'
+import { ProjectsOfUser } from '../pages/projectsPages/projectsOfUser'
+import { ProjectPage } from '../pages/projectsPages/projectPage'
 
 export function Router() {
   return (
@@ -27,18 +32,23 @@ export function Router() {
         <Route path="/login/passwordChange" element={<LoginPasswordChange />} />
       </Route>
       <Route path="/app" element={<Layout />}>
-        <Route path="/app/admin/projectsList" element={<AdminProjectsList />} />
+        <Route path="/app/projectsList" element={<AdminProjectsList />} />
         <Route
-          path="/app/admin/projectsList/projectsSignIn"
+          path="/app/projectsList/projectsSignIn"
           element={<AdminProjectsSignIn />}
         />
-        <Route path="/app/admin/usersList" element={<AdminUsersList />} />
+        <Route path="/app/usersList" element={<AdminUsersList />} />
         <Route
           path="/app/admin/projectsList/projectEdit"
           element={<AdminProjectsEdit />}
         />
-        <Route path="/app/admin/stagesList" element={<AdminStagesList />} />
-        <Route path="/app/admin/dashboard" element={<Dashboard />} />
+        <Route path="/app/stagesList" element={<AdminStagesList />} />
+        <Route path="/app/dashboard" element={<Dashboard />} />
+        <Route path="/app/userSignIn" element={<UsersSignIn />} />
+        <Route path="/app/stagesSignIn" element={<StagesSignIn />} />
+        <Route path="/app/userUpdate" element={<UserUpdate />} />
+        <Route path="/app/projectsOfUser" element={<ProjectsOfUser />} />
+        <Route path="/app/projectPage/:id" element={<ProjectPage />} />
       </Route>
     </Routes>
   )

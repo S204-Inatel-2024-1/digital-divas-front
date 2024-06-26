@@ -1,39 +1,45 @@
-import {
-  ReactNode,
-  createContext,
-  useState,
-  useCallback,
-  useEffect,
-} from 'react'
-import { api } from '../lib/axios'
-import { Student } from '../models/StudentModel'
+// import {
+//   ReactNode,
+//   createContext,
+//   useState,
+//   useCallback,
+//   useEffect,
+// } from 'react'
+// import { api } from '../lib/axios'
+// import { UserModel } from '../models/UserModel'
 
-interface StudentContextType {
-  students: Student[]
-  fetchStudents: () => Promise<void>
-}
+// interface StudentContextType {
+//   students: UserModel[]
+//   fetchStudents: () => Promise<void>
+//   postStudent: (student: UserModel) => Promise<void>
+// }
 
-export const StudentContext = createContext({} as StudentContextType)
+// export const StudentContext = createContext({} as StudentContextType)
 
-interface StudentContextProviderProps {
-  children: ReactNode
-}
+// interface StudentContextProviderProps {
+//   children: ReactNode
+// }
 
-export function StudentProvider({ children }: StudentContextProviderProps) {
-  const [students, setStudents] = useState<Student[]>([])
+// export function StudentProvider({ children }: StudentContextProviderProps) {
+//   const [students, setStudents] = useState<UserModel[]>([])
 
-  const fetchStudents = useCallback(async () => {
-    const response = await api.get('students')
-    setStudents(response.data)
-  }, [])
+//   const fetchStudents = useCallback(async () => {
+//     const response = await api.get('students')
+//     setStudents(response.data)
+//   }, [])
 
-  useEffect(() => {
-    fetchStudents()
-  }, [fetchStudents])
+//   const postStudent = useCallback(async (student: UserModel) => {
+//     const response = await api.post('students', student)
+//     setStudents((prevStudents) => [...prevStudents, response.data])
+//   }, [])
 
-  return (
-    <StudentContext.Provider value={{ students, fetchStudents }}>
-      {children}
-    </StudentContext.Provider>
-  )
-}
+//   useEffect(() => {
+//     fetchStudents()
+//   }, [fetchStudents])
+
+//   return (
+//     <StudentContext.Provider value={{ students, fetchStudents, postStudent }}>
+//       {children}
+//     </StudentContext.Provider>
+//   )
+// }

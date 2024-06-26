@@ -8,11 +8,14 @@ import {
 } from './styles'
 
 import { FilterBarAndButton } from '../../../components/filter'
-import { StageCard } from '../../../components/stageCard'
-import { SetStateAction, useState } from 'react'
+// import { StageCard } from '../../../components/stageCard'
+import { SetStateAction, useContext, useState } from 'react'
 import { Breadcrumbs } from '../../../components/breadCrumbs'
+import { UserLoggedContext } from '../../../contexts/UserLoggedContext'
 
 export function Dashboard() {
+  const { userLogged } = useContext(UserLoggedContext)
+
   const [activeFilter, setActiveFilter] = useState('LISTA')
 
   const handleFilterClick = (filter: SetStateAction<string>) => {
@@ -23,7 +26,9 @@ export function Dashboard() {
     <ProjectsContainer>
       <Breadcrumbs text="Fetin 2024 / Dashboard" />
       <ProjectsHeader>
-        <span>Olá, Bárbara Barbieri!</span>
+        <span>
+          Olá, {userLogged.firstName} {userLogged.lastName}!
+        </span>
         <span>Visualize o andamento dessa edição da Fetin.</span>
       </ProjectsHeader>
       <ListContainer>
@@ -49,9 +54,7 @@ export function Dashboard() {
         </ListHead>
         <Divider></Divider>
         <FilterBarAndButton />
-        <ListContent>
-          <StageCard />
-        </ListContent>
+        <ListContent>{/* <StageCard /> */}</ListContent>
       </ListContainer>
     </ProjectsContainer>
   )

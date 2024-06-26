@@ -47,6 +47,7 @@ export const HeaderIcon = styled.div`
   border-radius: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
 
-  padding: 11px 10px;
+  padding: 10px 10px;
 `

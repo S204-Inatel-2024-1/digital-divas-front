@@ -1,15 +1,15 @@
 import { UserAvatar } from '../userAvatar'
-import { User } from '../../models/UserModel'
+import { UserModel } from '../../models/UserModel'
 import { AvatarStack } from './styles'
 
 interface UserAvatarStackProps {
-  users: User[]
+  users: UserModel[]
 }
 
 export function UserAvatarStack({ users }: UserAvatarStackProps) {
   return (
     <AvatarStack>
-      {users.map((user: User) => (
+      {users.map((user: UserModel) => (
         <UserAvatar key={user.id} user={user} />
       ))}
     </AvatarStack>

@@ -13,12 +13,18 @@ export const Breadcrumbs = styled.span`
 export const ProjectsHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 16px;
 
-  span {
+  span:first-child {
     font-size: 40px;
     color: ${(props) => props.theme.blue_100};
     font-weight: bold;
+  }
+
+  span:last-child {
+    font-size: 16px;
+    color: ${(props) => props.theme.blue_100};
   }
 `
 
@@ -75,7 +81,7 @@ export const ListContent = styled.div`
     padding: 10px;
 
     th {
-      font-size: 12px;
+      font-size: 15px;
       font-weight: bold;
       color: ${(props) => props.theme.blue_100};
       text-align: left;
@@ -88,7 +94,7 @@ export const ListContent = styled.div`
     }
 
     td {
-      font-size: 12px;
+      font-size: 14px;
       color: #000;
       padding: 12px 16px;
     }
@@ -101,4 +107,49 @@ export const Pagination = styled.div`
   font-size: 12px;
   padding: 10px 0px;
   border-bottom: 1px solid #dddddd;
+`
+
+export const TeamContainer = styled.div`
+  display: flex;
+`
+
+export const CircleInitial = styled.div`
+  background-color: #0159ea;
+  color: #fff;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 1px solid #fff;
+`
+export const UserData = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-top: 30px;
+
+  border: 1px solid ${(props) => props.theme.neutral_10};
+  border-radius: 12px;
+  padding: 10px 20px;
+  gap: 16px;
+`
+
+export const UserDataContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+
+  span:first-child {
+    font-size: 16px;
+    font-weight: bold;
+    color: ${(props) => props.theme.blue_70};
+  }
+
+  span:last-child {
+    font-size: 15px;
+    color: ${(props) => props.theme.neutral_95};
+  }
 `

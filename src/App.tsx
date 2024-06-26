@@ -7,18 +7,21 @@ import { BrowserRouter } from 'react-router-dom'
 import { UserLoggedProvider } from './contexts/UserLoggedContext'
 import { UserProvider } from './contexts/UserContext'
 import { ProjectProvider } from './contexts/ProjectContext'
+import { StageContextProvider } from './contexts/StageContext'
 
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <BrowserRouter>
-        <UserLoggedProvider>
-          <ProjectProvider>
+        <StageContextProvider>
+          <UserLoggedProvider>
             <UserProvider>
-              <Router />
+              <ProjectProvider>
+                <Router />
+              </ProjectProvider>
             </UserProvider>
-          </ProjectProvider>
-        </UserLoggedProvider>
+          </UserLoggedProvider>
+        </StageContextProvider>
       </BrowserRouter>
       <GlobalStyle />
     </ThemeProvider>

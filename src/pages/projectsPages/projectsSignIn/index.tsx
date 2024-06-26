@@ -17,13 +17,18 @@ import {
 import { ButtonWhite } from '../../../components/buttonWhite'
 import { ButtonBlue } from '../../../components/buttonBlue'
 import { Breadcrumbs } from '../../../components/breadCrumbs'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import * as z from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { ProjectContext } from '../../../contexts/ProjectContext'
+import { UserContext } from '../../../contexts/UserContext'
 
 export function AdminProjectsSignIn() {
   const [students, setStudents] = useState([{ id: 1 }])
+
+  const { addProject } = useContext(ProjectContext)
+  const { users, fetchUsers } = useContext(UserContext)
 
   const addStudent = () => {
     if (students.length < 4)
@@ -41,8 +46,6 @@ export function AdminProjectsSignIn() {
     name: z.string(),
     email: z.string(),
     registration: z.string(),
-    course: z.string(),
-    period: z.string(),
   })
 
   const advisorSchema = z.object({
@@ -51,21 +54,58 @@ export function AdminProjectsSignIn() {
   })
 
   const createProjectSchema = z.object({
-    id: z.string(),
     projectName: z.string(),
+    projectLevel: z.string(),
     advisor: advisorSchema,
     students: z.array(studentSchema).min(1).max(4),
   })
 
   type CreateProjectFormInputs = z.infer<typeof createProjectSchema>
 
-  const { register, handleSubmit } = useForm<CreateProjectFormInputs>({
+  const { register, handleSubmit, reset } = useForm<CreateProjectFormInputs>({
     resolver: zodResolver(createProjectSchema),
   })
 
-  function handleCreateProjectSubmit(data: CreateProjectFormInputs) {
-    console.log('teste teste teste')
-    console.log(data)
+  const findUserByEmail = (email: string) => {
+    console.log(email)
+    console.log('Teste users', users)
+    fetchUsers()
+    return users.find((user) => user.email === email)
+  }
+
+  const handleCreateProjectSubmit = (data: CreateProjectFormInputs) => {
+    const advisor = findUserByEmail(data.advisor.advisorEmail)
+    const team = []
+
+    for (let i = 0; i < data.students.length; i++) {
+      const student = findUserByEmail(data.students[i].email)
+      console.log(student)
+      if (student) {
+        team.push(student.id)
+      } else {
+        alert(`Aluno com email ${data.students[i].email} não encontrado!`)
+        return
+      }
+    }
+
+    console.log(team)
+
+    if (!advisor) {
+      alert(`Orientador com email ${data.advisor.advisorEmail} não encontrado!`)
+      return
+    }
+
+    const projectData = {
+      name: data.projectName,
+      level: data.projectLevel,
+      advisorId: advisor.id,
+      team,
+    }
+
+    console.log(projectData)
+
+    addProject(projectData)
+    reset()
   }
 
   return (
@@ -82,12 +122,12 @@ export function AdminProjectsSignIn() {
             <Divider></Divider>
             <GeneralInfo>
               <InputContainer>
-                <label htmlFor="title">Id</label>
+                <label htmlFor="title">Nível</label>
                 <StyledInput
                   width="84px"
                   type="text"
                   placeholder="#001"
-                  {...register('id')}
+                  {...register('projectLevel')}
                 />
               </InputContainer>
               <InputContainer>
@@ -159,28 +199,6 @@ export function AdminProjectsSignIn() {
                       {...register(`students.${index}.registration`)}
                     />
                   </InputContainer>
-                  <InputContainer>
-                    <label htmlFor="description">
-                      Curso do Aluno {student.id} *
-                    </label>
-                    <StyledInput
-                      type="text"
-                      id="nameAdvisor"
-                      placeholder="Insira o curso..."
-                      {...register(`students.${index}.course`)}
-                    />
-                  </InputContainer>
-                  <InputContainer>
-                    <label htmlFor="description">
-                      Período do Aluno {student.id} *
-                    </label>
-                    <StyledInput
-                      type="text"
-                      id="nameAdvisor"
-                      placeholder="Insira o período..."
-                      {...register(`students.${index}.period`)}
-                    />
-                  </InputContainer>
                 </StudentInfo>
                 <Divider2></Divider2>
               </>
@@ -188,12 +206,19 @@ export function AdminProjectsSignIn() {
           </div>
           <ButtonDiv>
             <Divider2></Divider2>
-            <ButtonWhite text="Adicionar integrante" OnClick={addStudent} />
-            <ButtonWhite text="Remover integrante" OnClick={removeStudent} />
+            <ButtonWhite
+              text="Adicionar integrante"
+              OnClick={addStudent}
+              type="button"
+            />
+            <ButtonWhite
+              text="Remover integrante"
+              OnClick={removeStudent}
+              type="button"
+            />
             <Divider2></Divider2>
           </ButtonDiv>
           <FormsFooter>
-            <button type="submit">Criar projeto</button>
             <ButtonBlue text="Criar Projeto" type="submit" />
           </FormsFooter>
         </form>

@@ -1,11 +1,14 @@
-export interface Project {
-  id: number
+import { UserModel } from './UserModel'
+
+export interface ProjectModel {
+  id: string
   name: string
   description: string
-  team: number[]
+  team: UserModel[]
   stage: string
   status: string
-  level: number
-  advisorId: number
-  groupeId: number[]
+  level: string
+  advisor: UserModel
+  startDate: Date
+  endDate?: Date
 }

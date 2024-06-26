@@ -6,22 +6,21 @@ import {
   StageTag,
 } from './styles'
 
-export function StageCard() {
+import { StageModel } from '../../models/StagesModel'
+
+export function StageCard(props: StageModel) {
   return (
     <StageCardContent>
       <StageCardHeader>
         <StageCardDate>
           <img src="" alt="" />
-          <span>19-20 de Março de 2024</span>
+          <span>{props.date}</span>
         </StageCardDate>
-        <StageTag>Realizado</StageTag>
+        <StageTag>{props.status}</StageTag>
       </StageCardHeader>
       <StageCardBody>
-        <span>Banca de Ideação</span>
-        <span>
-          Validação da idea com especialistas e/ou usuário e entrega do mapa do
-          sucesso
-        </span>
+        <span>{props.name}</span>
+        <span>{props.description}</span>
       </StageCardBody>
     </StageCardContent>
   )

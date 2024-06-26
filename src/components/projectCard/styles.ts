@@ -1,31 +1,23 @@
 import styled from 'styled-components'
 
-export const StageCardContent = styled.div`
+export const ProjectCardContent = styled.div`
   padding: 24px;
   border: 1px solid ${(props) => props.theme.neutral_10};
   border-radius: 12px;
   margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `
 
-export const StageCardHeader = styled.div`
+export const ProjectCardHeader = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 8px;
 `
 
-export const StageCardDate = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 2px;
-
-  span {
-    color: ${(props) => props.theme.neutral_40};
-    font-size: 12px;
-    font-weight: bold;
-  }
-`
-
-export const StageTag = styled.span`
+export const ProjectTag = styled.span`
   padding: 8px;
   background-color: ${(props) => props.theme.blue_05};
   border-radius: 10px;
@@ -35,7 +27,7 @@ export const StageTag = styled.span`
   font-weight: bold;
 `
 
-export const StageCardBody = styled.div`
+export const ProjectCardBody = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -48,7 +40,7 @@ export const StageCardBody = styled.div`
 
   span:nth-child(2) {
     color: ${(props) => props.theme.neutral_60};
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
   }
 `

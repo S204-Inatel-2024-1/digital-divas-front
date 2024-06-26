@@ -1,26 +1,14 @@
-import {
-  ReactNode,
-  createContext,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import { ReactNode, createContext, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../lib/axios'
-
-interface UserLogged {
-  id: number
-  email: string
-  firstName: string
-  lastName: string
-  password: string
-  role: string
-}
+import { UserModel } from '../models/UserModel'
 
 interface UserLoggedContextType {
-  userLogged: UserLogged
+  userLogged: UserModel
   fetchUser: (email?: string, password?: string) => Promise<void>
   putUser: (password: string) => Promise<void>
+  putUserLogged: (newData: UserModel) => Promise<void>
+  logOut: () => void
 }
 
 export const UserLoggedContext = createContext({} as UserLoggedContextType)
@@ -32,7 +20,7 @@ interface UserLoggedContextProviderProps {
 export function UserLoggedProvider({
   children,
 }: UserLoggedContextProviderProps) {
-  const [userLogged, setUserLogged] = useState<UserLogged>({} as UserLogged)
+  const [userLogged, setUserLogged] = useState<UserModel>({} as UserModel)
   const navigate = useNavigate()
 
   const fetchUser = useCallback(
@@ -40,40 +28,62 @@ export function UserLoggedProvider({
       const response = await api.get('users')
       const users = response.data
 
-      const user = users.find(
+      const UserLogged = users.find(
         (user: { email: string; password: string }) =>
           user.email === email && user.password === password,
       )
 
-      if (userLogged.password === 'default') {
+      if (UserLogged.password === 'default') {
+        setUserLogged(UserLogged)
         navigate('/login/firstAccess')
-        setUserLogged(user)
-      } else if (user) {
-        setUserLogged(user)
-        console.log(user)
-        navigate('/app/admin/projectsList')
+      } else if (UserLogged) {
+        setUserLogged(UserLogged)
+        navigate('/app/dashboard')
       } else {
         console.log('Credenciais inválidas')
       }
     },
-    [navigate, userLogged],
-  )
-
-  const putUser = useCallback(
-    async (password: string) => {
-      const response = await api.put(`users/`, { password })
-      console.log(response.data)
-      navigate('/app/admin/projectsList')
-    },
     [navigate],
   )
 
-  useEffect(() => {
-    fetchUser()
-  }, [fetchUser])
+  const putUser = useCallback(
+    async (newPassword: string) => {
+      const updatedLoggedUser = {
+        ...userLogged,
+        password: newPassword,
+      }
+
+      await api.put(`users/${userLogged.id}`, updatedLoggedUser)
+
+      setUserLogged(updatedLoggedUser)
+      console.log(updatedLoggedUser)
+      navigate('/app/dashboard')
+    },
+    [navigate, userLogged],
+  )
+
+  const putUserLogged = useCallback(
+    async (newData: UserModel) => {
+      const updatedLoggedUser = {
+        ...newData,
+      }
+
+      await api.put(`users/${userLogged.id}`, updatedLoggedUser)
+
+      setUserLogged(updatedLoggedUser)
+    },
+    [userLogged],
+  )
+
+  function logOut() {
+    setUserLogged({} as UserModel)
+    navigate('/')
+  }
 
   return (
-    <UserLoggedContext.Provider value={{ userLogged, fetchUser, putUser }}>
+    <UserLoggedContext.Provider
+      value={{ userLogged, fetchUser, putUser, putUserLogged, logOut }}
+    >
       {children}
     </UserLoggedContext.Provider>
   )

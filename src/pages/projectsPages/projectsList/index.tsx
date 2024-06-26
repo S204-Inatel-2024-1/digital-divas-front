@@ -1,4 +1,5 @@
 import {
+  CircleInitial,
   Divider,
   ListContainer,
   ListContent,
@@ -7,39 +8,29 @@ import {
   ProjectsContainer,
   ProjectsHeader,
   ProjectsHeaderButtons,
+  TeamContainer,
 } from './styles'
 
 import { FilterBarAndButton } from '../../../components/filter'
 import { ButtonWhite } from '../../../components/buttonWhite'
 import { ButtonBlue } from '../../../components/buttonBlue'
-import { SetStateAction, useContext, useState } from 'react'
+import { SetStateAction, useContext, useEffect, useState } from 'react'
 import { Breadcrumbs } from '../../../components/breadCrumbs'
 import { UserLoggedContext } from '../../../contexts/UserLoggedContext'
-import { UserContext } from '../../../contexts/UserContext'
 import { ProjectContext } from '../../../contexts/ProjectContext'
-import { StudentContext } from '../../../contexts/StudentContext'
-import { UserAvatar } from '../../../components/userAvatar'
-import { UserAvatarStack } from '../../../components/userAvatarStack'
-import { User } from '../../../models/UserModel'
 
 export function AdminProjectsList() {
   const { userLogged } = useContext(UserLoggedContext)
-
+  const { fetchProjects, projects } = useContext(ProjectContext)
   const [activeFilter, setActiveFilter] = useState('TODOS OS NÍVEIS')
-
-  const { projects } = useContext(ProjectContext)
-  const { students } = useContext(StudentContext)
-  const { users } = useContext(UserContext)
 
   const handleFilterClick = (filter: SetStateAction<string>) => {
     setActiveFilter(filter)
   }
 
-  const findTeam = (membersId: number[], advisorId: number): User[] => {
-    const team = membersId.map((id) => users.find((user) => user.id === id)!)
-    const advisor = users.find((user) => user.id === advisorId)!
-    return [...team, advisor]
-  }
+  useEffect(() => {
+    fetchProjects()
+  }, [fetchProjects])
 
   return (
     <ProjectsContainer>
@@ -109,11 +100,18 @@ export function AdminProjectsList() {
                 <tr key={project.id}>
                   <td>{project.id}</td>
                   <td>{project.name}</td>
-                  <td>{project.level}</td>
+                  <td>Nível {project.level}</td>
                   <td>
-                    <UserAvatarStack
-                      users={findTeam(project.team, project.advisorId)}
-                    />
+                    <TeamContainer>
+                      {project.team.map((team, index) => (
+                        <CircleInitial key={index}>
+                          {team.firstName[0]} {team.lastName[0]}
+                        </CircleInitial>
+                      ))}
+                    </TeamContainer>
+                  </td>
+                  <td>
+                    {project.advisor.firstName} {project.advisor.lastName}
                   </td>
                   <td>{project.stage}</td>
                   <td>{project.status}</td>

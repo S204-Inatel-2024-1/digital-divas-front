@@ -1,5 +1,5 @@
-import { Header } from '../../components/header'
-import { SideBar } from '../../components/sideBar'
+import { Header } from '../../../components/header'
+import { SideBar } from '../../../components/sideBar'
 import { ContentContainer, PageContainer } from './styles'
 import { Outlet } from 'react-router-dom'
 

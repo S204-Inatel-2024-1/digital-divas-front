@@ -1,5 +1,5 @@
-import { FormFooter, InputContainer, LoginHeader } from './styles'
 import { ButtonBlue } from '../../../components/buttonBlue'
+import { FormFooter, InputContainer, LoginHeader } from './styles'
 
 export function LoginPasswordChange() {
   return (

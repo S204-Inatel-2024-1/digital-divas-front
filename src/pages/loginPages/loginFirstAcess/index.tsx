@@ -25,16 +25,15 @@ export function LoginFirstAccess() {
   })
 
   async function handlePasswordUpdateSubmit(data: PasswordUpdateFormInputs) {
+    console.log('User logged:', userLogged)
+
     if (userLogged.password === 'default')
       if (data.password === data.passwordConfirmation)
         await putUser(data.password)
       else alert('As senhas não coincidem')
     else alert('A senha já foi alterada')
 
-    console.log(userLogged)
-    console.log(data)
     console.log(data.password)
-    console.log(data.passwordConfirmation)
   }
 
   return (

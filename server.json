@@ -1,82 +1,142 @@
 {
   "users": [
     {
-      "id": 1,
-      "email": "john@gmail.com",
-      "firstName": "John",
-      "lastName": "Smith",
-      "password": "1234",
-      "role": "admin"
-    },
-    {
-      "id": 2,
-      "email": "jane@outlook.com",
-      "firstName": "Jane",
-      "lastName": "Smith",
-      "password": "abcd",
-      "role": "aluno"
-    },
-    {
-      "id": 3,
-      "email": "mike@yahoo.com",
-      "firstName": "Mike",
-      "lastName": "Smith",
-      "password": "efgh",
-      "role": "avaliador"
-    },
-    {
-      "id": 4,
-      "email": "lisa@live.com",
-      "firstName": "Lisa",
-      "lastName": "Smith",
-      "password": "ijkl",
-      "role": "admin"
-    },
-    {
-      "id": 5,
-      "email": "dave@aol.com",
-      "firstName": "Dave",
-      "lastName": "Smith",
-      "password": "mnop",
-      "role": "aluno"
-    },
-    {
-      "id": 6,
-      "email": "yvesan12@gmail.com",
+      "id": "1",
       "firstName": "Yves",
-      "lastName": "Smith",
+      "lastName": "Ribeiro",
+      "course": "Engenharia da Computação",
+      "registration": "1792",
+      "period": "7",
+      "institution": "Instituto Nacional de Telecomunicações",
+      "country": "Brasil",
+      "email": "yvesan12@gmail.com",
       "password": "1234",
       "role": "admin"
     },
     {
-      "id": 7,
+      "id": "2",
       "email": "yvesan20@gmail.com",
       "firstName": "Yves",
       "lastName": "Smith",
-      "password": "default",
-      "role": "admin"
-    }
-  ],
-  "students": [
+      "password": "12345",
+      "role": "advisor"
+    },
     {
-      "id": 1,
-      "userId": 1
+      "id": "3",
+      "firstName": "Stephanie",
+      "lastName": "Souza",
+      "email": "sthe@gmail.com",
+      "role": "student",
+      "password": "1234"
+    },
+    {
+      "id": "4",
+      "firstName": "Lucca",
+      "lastName": "Souza",
+      "email": "lucca@gmail.com",
+      "role": "student",
+      "password": "1234"
+    },
+    {
+      "id": "5",
+      "firstName": "Roberto",
+      "lastName": "Pinheiro",
+      "email": "roberto@gmail.com",
+      "role": "student",
+      "password": "1234"
     }
   ],
   "projects": [
     {
-      "id": 1,
-      "name": "Project 1",
-      "description": "Project 1 description",
-      "level": 1,
-      "advisorId": 1,
+      "id": "1",
+      "name": "Projeto Partilhe Mais",
+      "advisor":  {
+        "id": "1",
+        "firstName": "Yves",
+        "lastName": "Ribeiro",
+        "course": "Engenharia da Computação",
+        "registration": "1792",
+        "period": "7",
+        "institution": "Instituto Nacional de Telecomunicações",
+        "country": "Brasil",
+        "email": "yvesan12@gmail.com",
+        "password": "1234",
+        "role": "admin"
+      },
       "team": [
-        2, 5
+        {
+          "id": "3",
+          "firstName": "Stephanie",
+          "lastName": "Souza",
+          "email": "sthe@gmail.com",
+          "role": "student",
+          "password": "1234"
+        },
+        {
+          "id": "4",
+          "firstName": "Lucca",
+          "lastName": "Souza",
+          "email": "lucca@gmail.com",
+          "role": "student",
+          "password": "1234"
+        }
       ],
-      "stage": "Em andamento",
+      "description": "Habitat é um aplicativo que conecta pessoas interessadas em moradias sustentáveis e compartilhadas, promovendo comunidades ecológicas e colaborativas. Oferece busca de imóveis ecológicos, fóruns sobre práticas sustentáveis e ferramentas de gerenciamento comunitário",
+      "stage": "1",
       "status": "Ativo",
-      "startDate": "2020-01-01",
-      "endDate": "2020-12-31"
+      "level": "2",
+      "startDate": "2024-06-26T03:41:03.548Z"
+    },
+    {
+      "id": "2",
+      "name": "Projeto Habitat",
+      "advisor":{
+        "id": "2",
+        "email": "yvesan20@gmail.com",
+        "firstName": "Yves",
+        "lastName": "Smith",
+        "password": "12345",
+        "role": "advisor"
+      },
+      "team": [
+        {
+          "id": "3",
+          "firstName": "Stephanie",
+          "lastName": "Souza",
+          "email": "sthe@gmail.com",
+          "role": "student",
+          "password": "1234"
+        },
+        {
+          "id": "5",
+          "firstName": "Roberto",
+          "lastName": "Pinheiro",
+          "email": "roberto@gmail.com",
+          "role": "student",
+          "password": "1234"
+        }
+      ],
+      "description": "Habitat é um aplicativo que conecta pessoas interessadas em moradias sustentáveis e compartilhadas, promovendo comunidades ecológicas e colaborativas. Oferece busca de imóveis ecológicos, fóruns sobre práticas sustentáveis e ferramentas de gerenciamento comunitário",
+      "stage": "1",
+      "status": "Ativo",
+      "level": "3",
+      "startDate": "2024-06-26T03:41:03.548Z"
+    }
+  ],
+  "stages": [
+    {
+      "id": "1",
+      "name": "Workshop de Ideação",
+      "description": "Mentoria em ideação do Albert Einstein, HackTown, especialistas em jogos, inovação e por aí vai.",
+      "date": "19 de Março de 2024",
+      "status": "Em andamento"
+    },
+    {
+      "id": "2",
+      "name": "Primeira Banca de Avaliação",
+      "description": "Validação da ideia com especialistas e/ou usuário e entrega do mapa do sucesso",
+      "date": "30 de Abril de 2024",
+      "status": "Em andamento"
     }
   ]
 }

@@ -8,6 +8,7 @@ export const StyledButton = styled.button`
   font-size: 14px;
   font-weight: bold;
   transition: 0.2s all;
+  height: 50px;
 
   text-wrap: nowrap;
 

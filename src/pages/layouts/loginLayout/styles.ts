@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import loginImg from '../../assets/imgs/loginImg.svg'
+import loginImg from '../../../assets/imgs/loginImg.svg'
 
 export const LoginContainer = styled.div`
   display: flex;
