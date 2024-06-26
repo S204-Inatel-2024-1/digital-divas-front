@@ -18,15 +18,20 @@ import { SetStateAction, useContext, useEffect, useState } from 'react'
 import { Breadcrumbs } from '../../../components/breadCrumbs'
 import { UserLoggedContext } from '../../../contexts/UserLoggedContext'
 import { ProjectContext } from '../../../contexts/ProjectContext'
-import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export function AdminProjectsList() {
+  const navigate = useNavigate()
   const { userLogged } = useContext(UserLoggedContext)
   const { fetchProjects, projects } = useContext(ProjectContext)
   const [activeFilter, setActiveFilter] = useState('TODOS OS NÍVEIS')
 
   const handleFilterClick = (filter: SetStateAction<string>) => {
     setActiveFilter(filter)
+  }
+
+  const handleRowClick = (id: string) => {
+    navigate(`/app/projectPage/${id}`)
   }
 
   useEffect(() => {
@@ -98,29 +103,24 @@ export function AdminProjectsList() {
             </thead>
             <tbody>
               {projects.map((project) => (
-                <tr key={project.id}>
-                  <NavLink
-                    to={`/app/projectPage/${project.id}`}
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <td>{project.id}</td>
-                    <td>{project.name}</td>
-                    <td>Nível {project.level}</td>
-                    <td>
-                      <TeamContainer>
-                        {project.team.map((team, index) => (
-                          <CircleInitial key={index}>
-                            {team.firstName[0]} {team.lastName[0]}
-                          </CircleInitial>
-                        ))}
-                      </TeamContainer>
-                    </td>
-                    <td>
-                      {project.advisor.firstName} {project.advisor.lastName}
-                    </td>
-                    <td>{project.stage}</td>
-                    <td>{project.status}</td>
-                  </NavLink>
+                <tr key={project.id} onClick={() => handleRowClick(project.id)}>
+                  <td>{project.id}</td>
+                  <td>{project.name}</td>
+                  <td>Nível {project.level}</td>
+                  <td>
+                    <TeamContainer>
+                      {project.team.map((team, index) => (
+                        <CircleInitial key={index}>
+                          {team.firstName[0]} {team.lastName[0]}
+                        </CircleInitial>
+                      ))}
+                    </TeamContainer>
+                  </td>
+                  <td>
+                    {project.advisor.firstName} {project.advisor.lastName}
+                  </td>
+                  <td>{project.stage}</td>
+                  <td>{project.status}</td>
                 </tr>
               ))}
             </tbody>
