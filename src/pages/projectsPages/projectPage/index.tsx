@@ -39,7 +39,7 @@ export function ProjectPage() {
             <>
               <NavLink
                 key={projectPage.id}
-                to={`/app/projectPage/editProject/${projectPage.id}`}
+                to={`/app/projectUpdate/${projectPage.id}`}
                 style={{ textDecoration: 'none' }}
               >
                 <ButtonBlue text="Editar projeto" to="" />

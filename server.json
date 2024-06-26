@@ -2,16 +2,43 @@
   "users": [
     {
       "id": "1",
-      "firstName": "Yves",
-      "lastName": "Ribeiro",
-      "course": "Engenharia da Computação",
-      "registration": "1792",
-      "period": "7",
-      "institution": "Instituto Nacional de Telecomunicações",
-      "country": "Brasil",
-      "email": "yvesan12@gmail.com",
-      "password": "1234",
-      "role": "admin"
+      "name": "Projeto Partilhe Menos",
+      "description": "Habitat é um aplicativo que conecta pessoas interessadas em moradias sustentáveis e compartilhadas, promovendo comunidades ecológicas e colaborativas. Oferece busca de imóveis ecológicos, fóruns sobre práticas sustentáveis e ferramentas de gerenciamento comunitário",
+      "team": [
+        {
+          "id": "3",
+          "firstName": "Stephanie",
+          "lastName": "Souza",
+          "email": "sthe@gmail.com",
+          "role": "student",
+          "password": "1234"
+        },
+        {
+          "id": "4",
+          "firstName": "Lucca",
+          "lastName": "Souza",
+          "email": "lucca@gmail.com",
+          "role": "student",
+          "password": "1234"
+        }
+      ],
+      "stage": "2",
+      "status": "Ativo",
+      "level": "3",
+      "advisor": {
+        "id": "1",
+        "firstName": "Yves",
+        "lastName": "Ribeiro",
+        "course": "Engenharia da Computação",
+        "registration": "1792",
+        "period": "7",
+        "institution": "Instituto Nacional de Telecomunicações",
+        "country": "Brasil",
+        "email": "yvesan12@gmail.com",
+        "password": "1234",
+        "role": "admin"
+      },
+      "startDate": "2024-06-26T03:41:03.548Z"
     },
     {
       "id": "2",

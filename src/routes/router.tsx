@@ -17,6 +17,7 @@ import { UsersSignIn } from '../pages/usersPages/usersSignIn'
 import { UserUpdate } from '../pages/usersPages/userUpdate'
 import { ProjectsOfUser } from '../pages/projectsPages/projectsOfUser'
 import { ProjectPage } from '../pages/projectsPages/projectPage'
+import { ProjectUpdate } from '../pages/projectsPages/projectEdit'
 
 export function Router() {
   return (
@@ -49,6 +50,7 @@ export function Router() {
         <Route path="/app/userUpdate" element={<UserUpdate />} />
         <Route path="/app/projectsOfUser" element={<ProjectsOfUser />} />
         <Route path="/app/projectPage/:id" element={<ProjectPage />} />
+        <Route path="/app/projectUpdate/:id" element={<ProjectUpdate />} />
       </Route>
     </Routes>
   )

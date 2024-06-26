@@ -1,7 +1,7 @@
 import { UserModel } from './UserModel'
 
 export interface ProjectModel {
-  id: string
+  id: string | undefined
   name: string
   description: string
   team: UserModel[]

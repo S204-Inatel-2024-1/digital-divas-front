@@ -22,6 +22,7 @@ interface ProjectContextType {
   fetchProjects: () => Promise<void>
   addProject: (project: AddProjectParams) => Promise<void>
   fetchProjectById: (projectId: string) => Promise<void>
+  putProject: (newData: ProjectModel) => Promise<void>
 }
 
 export const ProjectContext = createContext({} as ProjectContextType)
@@ -79,6 +80,19 @@ export function ProjectProvider({ children }: ProjectContextProviderProps) {
     [fetchUserWithId],
   )
 
+  const putProject = useCallback(
+    async (newData: ProjectModel) => {
+      const updatedProject = {
+        ...newData,
+      }
+
+      await api.put(`users/${projectPage.id}`, updatedProject)
+
+      setProjectPage(updatedProject)
+    },
+    [projectPage],
+  )
+
   return (
     <ProjectContext.Provider
       value={{
@@ -87,6 +101,7 @@ export function ProjectProvider({ children }: ProjectContextProviderProps) {
         addProject,
         projectPage,
         fetchProjectById,
+        putProject,
       }}
     >
       {children}
