@@ -86,7 +86,7 @@ export function ProjectProvider({ children }: ProjectContextProviderProps) {
         ...newData,
       }
 
-      await api.put(`users/${projectPage.id}`, updatedProject)
+      await api.put(`projects/${projectPage.id}`, updatedProject)
 
       setProjectPage(updatedProject)
     },
