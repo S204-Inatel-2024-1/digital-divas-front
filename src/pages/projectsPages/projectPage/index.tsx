@@ -10,7 +10,7 @@ import { Breadcrumbs } from '../../../components/breadCrumbs'
 import { ProjectContext } from '../../../contexts/ProjectContext'
 import { useParams } from 'react-router-dom'
 import { AdvisorCard } from '../../../components/advisorCard'
-// import { TeamCard } from '../../../components/teamCard'
+import { TeamCard } from '../../../components/teamCard'
 
 export function ProjectPage() {
   const { projectPage, fetchProjectById } = useContext(ProjectContext)
@@ -51,29 +51,32 @@ export function ProjectPage() {
         </UserDataContent>
       </UserData>
 
-      <AdvisorCard
-        country={'Brasil'}
-        email={projectPage.advisor.email}
-        firstName={projectPage.advisor.firstName}
-        instituition={projectPage.advisor.institution}
-        lastName={projectPage.advisor.lastName}
-      />
+      {projectPage.advisor && (
+        <AdvisorCard
+          country={projectPage.advisor.country}
+          email={projectPage.advisor.email}
+          firstName={projectPage.advisor.firstName}
+          instituition={projectPage.advisor.institution}
+          lastName={projectPage.advisor.lastName}
+        />
+      )}
 
-      {/* {projectPage.team.map((student, index) => (
-        <div key={student.id}>
-          <TeamCard
-            email={student.email}
-            firstName={student.firstName}
-            id={index + 1}
-            registration={student.email}
-            lastName={student.lastName}
-            country={student.country}
-            course={student.course}
-            institution={student.institution}
-            period={student.period}
-          />
-        </div>
-      ))} */}
+      {projectPage.team &&
+        projectPage.team.map((student, index) => (
+          <div key={student.id}>
+            <TeamCard
+              email={student.email}
+              firstName={student.firstName}
+              id={index + 1}
+              registration={student.email}
+              lastName={student.lastName}
+              country={student.country}
+              course={student.course}
+              institution={student.institution}
+              period={student.period}
+            />
+          </div>
+        ))}
     </ProjectsContainer>
   )
 }
