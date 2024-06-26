@@ -1,6 +1,7 @@
 import {
   ProjectsContainer,
   ProjectsHeader,
+  ProjectsHeaderButtons,
   UserData,
   UserDataContent,
 } from './styles'
@@ -8,12 +9,15 @@ import {
 import { useContext, useEffect } from 'react'
 import { Breadcrumbs } from '../../../components/breadCrumbs'
 import { ProjectContext } from '../../../contexts/ProjectContext'
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { AdvisorCard } from '../../../components/advisorCard'
 import { TeamCard } from '../../../components/teamCard'
+import { UserLoggedContext } from '../../../contexts/UserLoggedContext'
+import { ButtonBlue } from '../../../components/buttonBlue'
 
 export function ProjectPage() {
   const { projectPage, fetchProjectById } = useContext(ProjectContext)
+  const { userLogged } = useContext(UserLoggedContext)
 
   const { id } = useParams()
 
@@ -30,6 +34,19 @@ export function ProjectPage() {
       <ProjectsHeader>
         <span>{projectPage.name}</span>
         <span>{projectPage.description}</span>
+        <ProjectsHeaderButtons>
+          {userLogged.role === 'admin' && (
+            <>
+              <NavLink
+                key={projectPage.id}
+                to={`/app/projectPage/editProject/${projectPage.id}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <ButtonBlue text="Editar projeto" to="" />
+              </NavLink>
+            </>
+          )}
+        </ProjectsHeaderButtons>
       </ProjectsHeader>
 
       <UserData>

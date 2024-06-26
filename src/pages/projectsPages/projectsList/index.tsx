@@ -18,6 +18,7 @@ import { SetStateAction, useContext, useEffect, useState } from 'react'
 import { Breadcrumbs } from '../../../components/breadCrumbs'
 import { UserLoggedContext } from '../../../contexts/UserLoggedContext'
 import { ProjectContext } from '../../../contexts/ProjectContext'
+import { NavLink } from 'react-router-dom'
 
 export function AdminProjectsList() {
   const { userLogged } = useContext(UserLoggedContext)
@@ -98,23 +99,28 @@ export function AdminProjectsList() {
             <tbody>
               {projects.map((project) => (
                 <tr key={project.id}>
-                  <td>{project.id}</td>
-                  <td>{project.name}</td>
-                  <td>Nível {project.level}</td>
-                  <td>
-                    <TeamContainer>
-                      {project.team.map((team, index) => (
-                        <CircleInitial key={index}>
-                          {team.firstName[0]} {team.lastName[0]}
-                        </CircleInitial>
-                      ))}
-                    </TeamContainer>
-                  </td>
-                  <td>
-                    {project.advisor.firstName} {project.advisor.lastName}
-                  </td>
-                  <td>{project.stage}</td>
-                  <td>{project.status}</td>
+                  <NavLink
+                    to={`/app/projectPage/${project.id}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <td>{project.id}</td>
+                    <td>{project.name}</td>
+                    <td>Nível {project.level}</td>
+                    <td>
+                      <TeamContainer>
+                        {project.team.map((team, index) => (
+                          <CircleInitial key={index}>
+                            {team.firstName[0]} {team.lastName[0]}
+                          </CircleInitial>
+                        ))}
+                      </TeamContainer>
+                    </td>
+                    <td>
+                      {project.advisor.firstName} {project.advisor.lastName}
+                    </td>
+                    <td>{project.stage}</td>
+                    <td>{project.status}</td>
+                  </NavLink>
                 </tr>
               ))}
             </tbody>
