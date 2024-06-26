@@ -8,7 +8,7 @@ import {
 } from './styles'
 import Logo from '../../assets/imgs/LogoFetinApp.svg'
 import ArrowLeft from '../../assets/icons/arrowLeft.svg'
-import HomeIcon from '../../assets/icons/home-2.svg'
+// import HomeIcon from '../../assets/icons/home-2.svg'
 import CheckIcon from '../../assets/icons/tick-square.svg'
 import CupIcon from '../../assets/icons/cup.svg'
 import ProfileIcon from '../../assets/icons/profile-2user.svg'
@@ -26,20 +26,13 @@ export function SideBar() {
       </SideBarHeader>
       <SideBarContent>
         <SideBarButtons>
-          <StyledNavLink
+          {/* <StyledNavLink
             to={'/app/dashboard'}
             style={{ textDecoration: 'none' }}
           >
             <img src={HomeIcon} alt="" />
             <span>Início</span>
-          </StyledNavLink>
-          <StyledNavLink
-            to={'/app/stagesList'}
-            style={{ textDecoration: 'none' }}
-          >
-            <img src={CheckIcon} alt="" />
-            <span>Etapas</span>
-          </StyledNavLink>
+          </StyledNavLink> */}
 
           {userLogged.role === 'admin' && (
             <>
@@ -76,6 +69,14 @@ export function SideBar() {
               </StyledNavLink>
             </>
           )}
+
+          <StyledNavLink
+            to={'/app/stagesList'}
+            style={{ textDecoration: 'none' }}
+          >
+            <img src={CheckIcon} alt="" />
+            <span>Etapas</span>
+          </StyledNavLink>
 
           <StyledNavLink
             to={'/app/usersList'}

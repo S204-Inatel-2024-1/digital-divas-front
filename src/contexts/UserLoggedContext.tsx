@@ -38,7 +38,7 @@ export function UserLoggedProvider({
         navigate('/login/firstAccess')
       } else if (UserLogged) {
         setUserLogged(UserLogged)
-        navigate('/app/dashboard')
+        navigate('/app/projectsList')
       } else {
         console.log('Credenciais inválidas')
       }
@@ -57,7 +57,7 @@ export function UserLoggedProvider({
 
       setUserLogged(updatedLoggedUser)
       console.log(updatedLoggedUser)
-      navigate('/app/dashboard')
+      navigate('/app/projectsList')
     },
     [navigate, userLogged],
   )
